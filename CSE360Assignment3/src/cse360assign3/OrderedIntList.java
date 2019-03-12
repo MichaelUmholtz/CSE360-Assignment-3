@@ -5,21 +5,15 @@
  *		Lecture: 	Wednesday 3:05 - 4:20
  *		Description:	This class creates a list of integers stored within an array that
  *						sorts based on an insertion approach. Duplicate values are excluded
- *						and the last value is removed from the list when necessary. The
- *						print method exists to print out only user inputted values stored
- *						within the array.	*/
+ *						and the last value is removed from the list when necessary. 	*/
 
 package cse360assign3;
 public class OrderedIntList {
 	
-	/**
-	 * Array used to contain all input values.
-	 */
+	/**	Array used to contain all input values.		*/
 	private int[] intArray; 
 	
-	/**
-	 * Integer holding number of input elements currently stored within the intArray.
-	 */
+	/**	Integer holding number of input elements currently stored within the intArray.		*/
 	private int numElements; 
 	
 	/**	A basic constructor that instantiates both the array to store values in as well as
@@ -43,7 +37,6 @@ public class OrderedIntList {
 	 *  move all subsequent elements as to maintain ascending order.	
 	 *  
 	 *  @param userInput Input value to be added to the array.		*/
-	
 	public void insert (int userInput) 
 	{
 		
@@ -116,6 +109,11 @@ public class OrderedIntList {
 		return numElements;
 	}
 	
+	/** Method that searches for one given value in the integer array then deletes it if it exists.
+	 * 	If deleting this element were to decrease the number of elements in the array below half the
+	 * 	array size, then the array size is changed to be 50% smaller.
+	 * 
+	 * @param key Integer value to be searched for and deleted from the integer array.		*/
 	public void delete (int key) {
 		
 		int indexToDelete = -1;
@@ -163,6 +161,11 @@ public class OrderedIntList {
 		}
 	}
 	
+	/**	This method converts all elements stored in the integer array into a printable string format.
+	 * 	This string is created such that there exists a space between each integer value excluding one
+	 * 	after the last value.
+	 * 
+	 *	@return A string containing all integer elements stored in the array.		*/
 	public String toString () 
 	{
 		String intList = "";
@@ -178,7 +181,4 @@ public class OrderedIntList {
 		return intList;
 	}
 	
-	public int numElements() {
-		return numElements;
-	}
 }
