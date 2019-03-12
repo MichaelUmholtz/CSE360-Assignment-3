@@ -30,13 +30,23 @@ public class OrderedIntList {
 			numElements = 0;
 	}
 	
+	/** Overloaded constructor allowing the size of the array to be given as a parameter.
+	 * 
+	 * @param size Size of the array used to hold integer values.		*/
+	OrderedIntList (int size)
+	{
+			intArray = new int[size];
+			numElements = 0;
+	}
+	
 	/**	Method to insert integer elements into their specific locations	and 
 	 *  move all subsequent elements as to maintain ascending order.	
 	 *  
 	 *  @param userInput Input value to be added to the array.		*/
 	
-	public void insert (int userInput) {
-			
+	public void insert (int userInput) 
+	{
+		
 			int insertIndex = 0;
 			
 			for (int forCounter = 0; forCounter < numElements; forCounter++) {
@@ -48,42 +58,127 @@ public class OrderedIntList {
 					insertIndex = forCounter;
 					
 					if(userInput == intArray[forCounter]) {
-						insertIndex = intArray.length;
+						insertIndex = -1;
 					}
 					
 					forCounter = numElements;
 				}
 			}
 			
-			System.out.println(insertIndex);
-			
-			if(numElements < intArray.length) {
-				numElements++;
-			} //Only increments number of elements to the maximum size of the array
-			
-			if(insertIndex >= intArray.length - 1) {
-				insertIndex = intArray.length - 1;
-			}  //Insures insertIndex never extends past the max index of the array
-			
-			if(insertIndex == intArray.length) {}
-			else {
+			if(insertIndex >= 0) {
 				
+				if(numElements >= intArray.length) {
+					
+					int newSize = (int)(intArray.length * 1.5);
+					
+					if(newSize == 1) {
+						newSize += 1;
+					}
+					
+					int[] tempArray = new int[newSize];
+					
+					for(int transferCounter = 0; transferCounter < numElements; transferCounter++) {
+						
+						tempArray[transferCounter] = intArray[transferCounter];
+					
+					}
+					
+					intArray = tempArray;
+				}
+				
+				if(numElements < intArray.length) {
+					numElements++;
+				} //Only increments number of elements to the maximum size of the array
+			
 				for (int forCounter = numElements - 1; forCounter > insertIndex; forCounter--) {
 					intArray[forCounter] = intArray[(forCounter - 1)];
 				}
 				
 				intArray[insertIndex] = userInput;
 				
-			}
+				} 
 			
 	}
-	/** Method to print all user inserted values within the array in lines of 5 elements per line.	*/
-	public void print () {
+	
+	/** Method returning the size of the array used to store integer values. 
+	 * 
+	 * @return Size of the array storing integer values.	*/
+	public int size () 
+	{
+		return (intArray.length);
+	}
+	
+	/** Method returning the number of integers currently stored in the array.
+	 * 
+	 * @return Number of integers stored in array.		*/
+	public int length () 
+	{
+		return numElements;
+	}
+	
+	public void delete (int key) {
 		
-		for (int forCounter = 0; forCounter < numElements; forCounter++) {
+		int indexToDelete = -1;
+		int numOfValuesToDelete = 0;
+		
+		for(int counter = 0; counter < intArray.length; counter ++) {
 			
-			if (forCounter % 5 == 0) System.out.println();
+			if(intArray[counter] == key) {
+				
+				indexToDelete = counter;
+				
+				numOfValuesToDelete += 1;
+				
+			}
 			
-			System.out.print(intArray[forCounter] + "\t"); }
+		}
+		
+		int[] tempArray;
+		
+		if((double)(numElements - numOfValuesToDelete) < ((double)intArray.length / 2)) {
+			tempArray = new int[intArray.length / 2];
+		}else {
+			tempArray = new int[intArray.length];
+		}
+		
+		
+		int tempCounter = 0;
+		
+		if(indexToDelete != -1) {
+			for(int arrayCounter = 0; arrayCounter < numElements; arrayCounter ++) {
+				
+				if(arrayCounter == indexToDelete && numOfValuesToDelete != 0) {
+				
+				}else {
+				
+					tempArray[tempCounter] = intArray[arrayCounter];
+					tempCounter+=1;
+				
+				}
+			}
+			
+			intArray = tempArray;
+			numElements = numElements - numOfValuesToDelete;
+			
+		}
+	}
+	
+	public String toString () 
+	{
+		String intList = "";
+		
+		for(int arrayCounter = 0; arrayCounter < numElements - 1; arrayCounter++) {
+			
+			intList = "" + intArray[arrayCounter] + " "; 
+		
+		}
+		
+		intList = "" + intArray[numElements-1];
+		
+		return intList;
+	}
+	
+	public int numElements() {
+		return numElements;
 	}
 }
